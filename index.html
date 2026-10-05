@@ -1,0 +1,705 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>DebtTrack KH</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+<header class="topbar">
+
+  <div class="brand">
+    <div class="brand-icon">DT</div>
+
+    <div>
+      <h2>DebtTrack KH</h2>
+      <small id="tagline">Debtor Management</small>
+    </div>
+  </div>
+
+  <div class="header-actions">
+
+    <div class="telegram-status">
+      <span class="status-dot"></span>
+      <span>Telegram</span>
+    </div>
+
+    <button id="langBtn" class="lang-btn">
+      ខ្មែរ
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- =========================
+     MAIN
+========================= -->
+<main class="container">
+
+
+  <!-- =====================
+       HERO
+  ====================== -->
+  <section class="hero">
+
+    <div class="hero-title">
+
+      <span class="welcome">
+        DEBT MANAGEMENT
+      </span>
+
+      <h1 data-i="title">
+        Debtor Dashboard
+      </h1>
+
+      <p data-i="subtitle">
+        Track debt, deadlines and payments.
+      </p>
+
+    </div>
+
+
+    <button
+      class="primary add-debt-btn"
+      onclick="showForm()"
+      data-i="add"
+    >
+      + Add Debt
+    </button>
+
+  </section>
+
+
+
+  <!-- =====================
+       DASHBOARD CARDS
+  ====================== -->
+  <section class="stats">
+
+
+    <!-- USD -->
+    <article class="stat-card">
+
+      <div class="stat-top">
+
+        <div class="stat-icon">
+          $
+        </div>
+
+        <span data-i="usd">
+          Total USD
+        </span>
+
+      </div>
+
+      <strong id="usdTotal">
+        $0.00
+      </strong>
+
+      <small>
+        Total unpaid balance
+      </small>
+
+    </article>
+
+
+
+    <!-- KHR -->
+    <article class="stat-card">
+
+      <div class="stat-top">
+
+        <div class="stat-icon">
+          ៛
+        </div>
+
+        <span data-i="khr">
+          Total KHR
+        </span>
+
+      </div>
+
+      <strong id="khrTotal">
+        0៛
+      </strong>
+
+      <small>
+        Total unpaid balance
+      </small>
+
+    </article>
+
+
+
+    <!-- UNPAID -->
+    <article class="stat-card">
+
+      <div class="stat-top">
+
+        <div class="stat-icon">
+          ◷
+        </div>
+
+        <span data-i="unpaid">
+          Unpaid
+        </span>
+
+      </div>
+
+      <strong id="unpaidCount">
+        0
+      </strong>
+
+      <small>
+        Active debts
+      </small>
+
+    </article>
+
+
+
+    <!-- OVERDUE -->
+    <article class="stat-card danger">
+
+      <div class="stat-top">
+
+        <div class="stat-icon danger-icon">
+          !
+        </div>
+
+        <span data-i="overdue">
+          Overdue
+        </span>
+
+      </div>
+
+      <strong id="overdueCount">
+        0
+      </strong>
+
+      <small>
+        Need attention
+      </small>
+
+    </article>
+
+  </section>
+
+
+
+  <!-- =====================
+       ADD DEBT FORM
+  ====================== -->
+  <section
+    id="formPanel"
+    class="panel form-panel hidden"
+  >
+
+    <div class="panel-head">
+
+      <div>
+        <small class="section-label">
+          DEBT INFORMATION
+        </small>
+
+        <h2 data-i="newDebt">
+          New Debt
+        </h2>
+      </div>
+
+      <button
+        class="x"
+        onclick="hideForm()"
+        type="button"
+      >
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="debtForm">
+
+      <div class="grid">
+
+
+        <!-- NAME -->
+        <label>
+
+          <span data-i="name">
+            Debtor Name
+          </span>
+
+          <input
+            id="name"
+            type="text"
+            placeholder="Enter debtor name"
+            required
+          >
+
+        </label>
+
+
+        <!-- PHONE -->
+        <label>
+
+          <span data-i="phone">
+            Phone
+          </span>
+
+          <input
+            id="phone"
+            type="tel"
+            placeholder="012 345 678"
+          >
+
+        </label>
+
+
+        <!-- AMOUNT -->
+        <label>
+
+          <span data-i="amount">
+            Amount
+          </span>
+
+          <input
+            id="amount"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="0.00"
+            required
+          >
+
+        </label>
+
+
+        <!-- CURRENCY -->
+        <label>
+
+          <span data-i="currency">
+            Currency
+          </span>
+
+          <select id="currency">
+
+            <option value="USD">
+              🇺🇸 USD ($)
+            </option>
+
+            <option value="KHR">
+              🇰🇭 KHR (៛)
+            </option>
+
+          </select>
+
+        </label>
+
+
+        <!-- DEBT DATE -->
+        <label>
+
+          <span data-i="debtDate">
+            Debt Date
+          </span>
+
+          <input
+            id="debtDate"
+            type="date"
+            required
+          >
+
+        </label>
+
+
+        <!-- DEADLINE -->
+        <label>
+
+          <span data-i="deadline">
+            Deadline
+          </span>
+
+          <input
+            id="deadline"
+            type="date"
+            required
+          >
+
+        </label>
+
+
+        <!-- INVOICE -->
+        <label class="wide upload-box">
+
+          <span data-i="invoice">
+            Invoice Image
+          </span>
+
+          <div class="upload-area">
+
+            <div class="upload-icon">
+              📷
+            </div>
+
+            <div>
+              <b>Upload Invoice</b>
+
+              <small>
+                Take photo or choose from gallery
+              </small>
+            </div>
+
+            <input
+              id="invoice"
+              type="file"
+              accept="image/*"
+              capture="environment"
+            >
+
+          </div>
+
+        </label>
+
+
+        <!-- NOTE -->
+        <label class="wide">
+
+          <span data-i="note">
+            Note
+          </span>
+
+          <textarea
+            id="note"
+            rows="4"
+            placeholder="Write additional information..."
+          ></textarea>
+
+        </label>
+
+      </div>
+
+
+      <!-- FORM BUTTONS -->
+      <div class="actions">
+
+        <button
+          type="button"
+          class="cancel-btn"
+          onclick="hideForm()"
+          data-i="cancel"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="primary save-btn"
+          data-i="save"
+        >
+          Save Debt
+        </button>
+
+      </div>
+
+    </form>
+
+  </section>
+
+
+
+  <!-- =====================
+       SEARCH
+  ====================== -->
+  <section class="toolbar">
+
+    <div class="search-wrapper">
+
+      <span class="search-icon">
+        ⌕
+      </span>
+
+      <input
+        id="search"
+        data-ph="search"
+        placeholder="Search name or phone..."
+      >
+
+    </div>
+
+
+    <select id="filter">
+
+      <option
+        value="all"
+        data-i="all"
+      >
+        All Status
+      </option>
+
+      <option
+        value="unpaid"
+        data-i="unpaid"
+      >
+        Unpaid
+      </option>
+
+      <option
+        value="overdue"
+        data-i="overdue"
+      >
+        Overdue
+      </option>
+
+      <option
+        value="paid"
+        data-i="paid"
+      >
+        Paid
+      </option>
+
+    </select>
+
+  </section>
+
+
+
+  <!-- =====================
+       DEBT RECORDS
+  ====================== -->
+  <section class="panel records-panel">
+
+
+    <div class="panel-head">
+
+      <div>
+
+        <small class="section-label">
+          DEBTORS
+        </small>
+
+        <h2 data-i="debts">
+          Debt Records
+        </h2>
+
+      </div>
+
+
+      <div class="record-badge">
+
+        <span id="recordCount">
+          0
+        </span>
+
+        Records
+
+      </div>
+
+    </div>
+
+
+
+    <!-- =================
+         DESKTOP TABLE
+    ================== -->
+    <div class="table-wrap">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th data-i="name">
+              Debtor
+            </th>
+
+            <th data-i="amount">
+              Amount
+            </th>
+
+            <th>
+              Debt Date
+            </th>
+
+            <th data-i="deadline">
+              Deadline
+            </th>
+
+            <th data-i="status">
+              Status
+            </th>
+
+            <th data-i="action">
+              Action
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody id="rows">
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+
+    <!-- =================
+         MOBILE CARDS
+    ================== -->
+    <div
+      id="cards"
+      class="cards"
+    >
+    </div>
+
+
+
+    <!-- =================
+         EMPTY
+    ================== -->
+    <div
+      id="empty"
+      class="empty"
+    >
+
+      <div class="empty-icon">
+        📋
+      </div>
+
+      <h3>
+        No Debt Records
+      </h3>
+
+      <p data-i="empty">
+        No debt records yet.
+      </p>
+
+      <button
+        class="primary"
+        onclick="showForm()"
+      >
+        + Add Your First Debt
+      </button>
+
+    </div>
+
+
+  </section>
+
+
+</main>
+
+
+
+<!-- =========================
+     MOBILE NAVIGATION
+========================= -->
+<nav class="mobile-nav">
+
+
+  <button
+    onclick="window.scrollTo({
+      top:0,
+      behavior:'smooth'
+    })"
+  >
+
+    <span class="nav-icon">
+      ⌂
+    </span>
+
+    <span data-i="home">
+      Home
+    </span>
+
+  </button>
+
+
+
+  <button
+    class="mobile-add"
+    onclick="showForm()"
+  >
+
+    <span class="mobile-add-circle">
+      +
+    </span>
+
+    <span data-i="addShort">
+      Add
+    </span>
+
+  </button>
+
+
+
+  <button
+    onclick="
+      document
+      .querySelector('.toolbar')
+      .scrollIntoView({
+        behavior:'smooth'
+      })
+    "
+  >
+
+    <span class="nav-icon">
+      ☷
+    </span>
+
+    <span data-i="debts">
+      Debts
+    </span>
+
+  </button>
+
+
+</nav>
+
+
+
+<!-- =========================
+     TOAST NOTIFICATION
+========================= -->
+<div
+  id="toast"
+  class="toast"
+>
+  <span id="toastIcon">
+    ✓
+  </span>
+
+  <span id="toastText">
+    Debt saved successfully
+  </span>
+</div>
+
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+<script src="app.js"></script>
+
+</body>
+</html>

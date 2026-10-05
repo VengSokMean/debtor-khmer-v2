@@ -1,0 +1,11 @@
+{
+  "name": "debtor-khmer-v2",
+  "version": "1.0.0",
+  "description": "Responsive debtor system for phone + desktop.",
+  "type": "module",
+  "dependencies": {
+    "express": "^5.2.1",
+    "serverless-http": "^4.0.0",
+    "mongodb": "^6.20.0"
+  }
+}
